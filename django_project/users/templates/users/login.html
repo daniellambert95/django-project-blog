@@ -9,12 +9,16 @@
                 <legend class="border-bottom mb-4">
                     Log In
                 </legend>
+                <p>Sign in via
+                    <a href="http://127.0.0.1:8000/accounts/google/login/?process=login">Gmail</a> 
+                </p> 
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Login</button>
             </div>
         </form>
+           
         <div class="border-top pt-3">
             <small class="text-muted">
                 Not registered yet? 

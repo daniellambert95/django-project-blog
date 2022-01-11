@@ -20,5 +20,6 @@ def register(request):
 def profile(request):
     return render(request, 'users/profile.html')
 
-
+# def google_login(request):
+#     return render(request, 'account/login.html') 
     
