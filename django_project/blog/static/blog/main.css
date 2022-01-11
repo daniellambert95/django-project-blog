@@ -1,0 +1,96 @@
+body {
+	background: #fafafa;
+	color: #333333;
+	margin-top: 5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #444444;
+}
+
+ul {
+	margin: 0;
+}
+
+.bg-steel {
+	background-color: #378537;
+	border-radius: 0 0 15px 15px;
+	box-shadow: 3px 3px 5px 6px rgb(215, 227, 214);
+}
+
+.site-header .navbar-nav .nav-link {
+	color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+	color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+	font-weight: 500;
+}
+
+.content-section {
+	background: #9edc9e2a;
+	padding: 10px 20px;
+	border: 1px solid #dddddd;
+	border-radius: 20px;
+	margin-bottom: 20px;
+	box-shadow: 3px 3px 5px 6px rgba(240, 242, 240, 0.534);
+}
+
+a.mr-2 {
+	color: rgb(159, 38, 104);
+}
+
+.article-title {
+	color: #020202;
+}
+
+a.article-title:hover {
+	color: #378537;
+	text-decoration: none;
+}
+
+.article-content {
+	white-space: pre-line;
+}
+
+.article-img {
+	height: 65px;
+	width: 65px;
+	margin-right: 16px;
+}
+
+.article-metadata {
+	padding-bottom: 1px;
+	margin-bottom: 4px;
+	border-bottom: 1px solid #e3e3e3;
+}
+
+.article-metadata a:hover {
+	color: #333;
+	text-decoration: none;
+}
+
+.article-svg {
+	width: 25px;
+	height: 25px;
+	vertical-align: middle;
+}
+
+.account-img {
+	height: 125px;
+	width: 125px;
+	margin-right: 20px;
+	margin-bottom: 16px;
+}
+
+.account-heading {
+	font-size: 2.5rem;
+}
