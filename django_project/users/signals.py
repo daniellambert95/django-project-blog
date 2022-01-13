@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from .models import Profile
 
 
-#  This will create a profille everytime a user gets created
+#  This will create a profile everytime a user gets created via registration
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
