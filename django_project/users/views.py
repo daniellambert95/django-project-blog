@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+import logging
+
+logger = logging.getLogger("django")
+
 
 # Create your views here.
 def register(request):
@@ -11,9 +15,13 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Your account creation has been successful, you can now login!')
+            logger.info("A new user has successfully registered a new profile.")
+            logger.debug(request)
             return redirect('login')
     else:
         form = UserRegisterForm()
+        logger.info("A user has visited the sites registration page.")
+        logger.debug(request)
     return render(request, 'users/register.html', {'form': form})
 
 @login_required
@@ -31,11 +39,14 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
+        logger.info("A user has visited the sites user_profile page.")
+        logger.debug(request)
 
     context = {
         'u_form': u_form,
         'p_form': p_form
     }
+        
 
     return render(request, 'users/profile.html', context )
 
