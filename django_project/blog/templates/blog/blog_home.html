@@ -19,7 +19,12 @@
                 <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm"> 
                     Like 
                 </button>
-                - {{ total_likes }} Likes
+                {% if post.total_likes > 0 %}
+                - {{ post.total_likes }} Likes
+
+                {% elif post.total_likes == 1 %}
+                - {{ post.total_likes }} Like
+                {% endif %} 
             </form>
             </div>
         </article>

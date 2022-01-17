@@ -29,14 +29,14 @@ def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
 
 
-def blog(request, **kwargs):
+def blog(request):
     context = {
         'posts': Post.objects.all(),
     }
     
-    post_id = get_object_or_404(Post, id = kwargs['pk'])
-    total_likes = post_id.total_likes()
-    context['total_likes'] = total_likes
+    # post_id = get_object_or_404(Post, id = kwargs['pk'])
+    # total_likes = post_id.total_likes()
+    # context['total_likes'] = total_likes
 
     logger.info("A user has visited the sites blog page.")
     logger.debug(request)
