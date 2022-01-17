@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -27,14 +29,25 @@ def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
 
 
-def blog(request):
+def blog(request, **kwargs):
     context = {
-        'posts': Post.objects.all()
+        'posts': Post.objects.all(),
     }
     
+    post_id = get_object_or_404(Post, id = kwargs['pk'])
+    total_likes = post_id.total_likes()
+    context['total_likes'] = total_likes
+
     logger.info("A user has visited the sites blog page.")
     logger.debug(request)
     return render(request, 'blog/blog_home.html', context)
+
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id = request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('blog-home'))
+
+
 
 class PostListView(ListView):
     model = Post
