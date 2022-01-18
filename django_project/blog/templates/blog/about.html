@@ -1,8 +1,43 @@
 {% extends "blog/base.html" %}
-
+{% load static %}
 {% block content %} 
 
-    <h1>About Page!</h1>
+    <h1>About Me</h1>
 
+    <div style="float:none">
+        <p style="float:none">Daniel Lambert &nbsp; | &nbsp; Based in Berlin &nbsp; | &nbsp; 27 years old </p>
+            <hr>
+            
+    <img class="about_me" src=" {% static '/blog/picture_of_daniel.jpg' %}  "  alt="Profile picture of Daniel Lambert">
+
+    <p>
+        Born in England, raised in Ireland now residing in Berlin, Germany.
+        With a broad array of interests and a diverse skill set I will quickly adapt to any area of business. 
+        I am versatile, reliable and forward thinking, with the proven ability to upskill and adapt rapidly.
+    </p>
+    <p>
+        I went through two unviersities aquiring great knowledge in Business and Managemment at 
+        the Technical University of Dublin before moving to Berlin to study for a Bachelors of Electronic Music
+        Proudction at the Catalyst institue for creative arts where I learned various techniques revolved around 
+        sound design.
+    </p>
+    <p>
+        From a very young age I showed great interest in computers and tech by ordering the parts to build my very own 
+        computer. I then proceeded to get to grips with a variety of software that brought me on the creative journey to 
+        where I am now. Some of my more advanced skills include basic UI/UX development, logo and graphic design, 
+        HTML, CSS and I can now safely say I've become well adapt with Python programming language. 
+    </p>
+    <p>
+        Although the path and my journey has been long, I believe I am only getting started and I have a number of projects
+        that I would like to create while continuously learning along the way. After I master Django I would like to move 
+        on to JavaScript as I believe it's an incredibly useful language and tool in web and app development.
+    </p>
+    <p>
+        If you would like to view my resume, please 
+            <a href="{% static 'blog/Daniel_Lambert-Resume.pdf' %}" download="Daniel Lambert - Resume.pdf" type="application/octet-stream">click here</a> to download. 
+        Alternatively you can contact me on 
+        <a href="https://www.linkedin.com/in/danieljlambert95/" target="_blank" >LinkedIn</a>.
+    </p>
+    </div>
 {% endblock content %}  
 

@@ -3,6 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import redirect 
+# from django.http import StreamingHttpResponse
+# import os
+# from WSGIREF.UTIL import FileWrapper
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -33,10 +37,6 @@ def blog(request):
     context = {
         'posts': Post.objects.all(),
     }
-    
-    # post_id = get_object_or_404(Post, id = kwargs['pk'])
-    # total_likes = post_id.total_likes()
-    # context['total_likes'] = total_likes
 
     logger.info("A user has visited the sites blog page.")
     logger.debug(request)
@@ -44,16 +44,34 @@ def blog(request):
 
 def LikeView(request, pk):
     post = get_object_or_404(Post, id = request.POST.get('post_id'))
-    post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('blog-home'))
 
+    if post.likes.filter(id = request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
+#  This returns the same/page link that we're on
+    return redirect(request.META['HTTP_REFERER'])
 
+def LoveView(request, pk):
+    post = get_object_or_404(Post, id = request.POST.get('post_id'))
+
+    if post.loves.filter(id = request.user.id).exists():
+        post.loves.remove(request.user)
+        liked = False
+    else:
+        post.loves.add(request.user)
+        liked = True
+    #  This returns the same/page link that we're on
+    return redirect(request.META['HTTP_REFERER'])
 
 class PostListView(ListView):
     model = Post
     template_name = "blog/blog_home.html"
     context_object_name = "posts"
-    ordering = ['-date_posted']
+    #  If I want to have the posts in order newest to oldest, add a '-' before date_posted
+    ordering = ['date_posted']
 
 class PostDetailView(DetailView):
     model = Post
@@ -98,3 +116,4 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+    

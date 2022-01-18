@@ -2,7 +2,7 @@
 
 {% block content %} 
 
-    <h1>Blog Page</h1>
+    <h1>The Blog</h1>
 
     {% for post in posts %}
         <article class="media content-section">
@@ -11,23 +11,42 @@
             <div class="article-metadata">
                 <a class="mr-2" href="#">{{ post.author }}</a>
                 <small class="text-muted">{{ post.date_posted|date:"F j, Y" }}</small>
+                
+                {% if post.total_likes > 0 %}
+                &nbsp; {{ post.total_likes }} &#128077;
+
+                {% endif %} 
+
+                {% if post.total_loves > 0 %}
+                &nbsp; {{ post.total_loves }} &#10084;
+
+                {% endif %} 
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
-            <form action="{% url 'like-post' post.pk %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm"> 
-                    Like 
-                </button>
-                {% if post.total_likes == 1 %}
-                - {{ post.total_likes }} Like
 
-                {% elif post.total_likes > 0 %}
-                - {{ post.total_likes }} Likes
+            {% if user.is_authenticated %}
+                <div class="btn-group"> 
+                <form action="{% url 'like-post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="post_id" value="{{ post.id }}"  class="btn btn-primary btn-sm mr-2"> 
+                        Like 
+                    </button>
+                </form>
+                <form action="{% url 'love-post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm mr-2"> 
+                        Love 
+                    </button>
+            {% else %}
+                <div class="btn-group"> 
+                    <a href="#"  class="btn btn-primary btn-sm test mr-2"> Like </a>
+                    <a href="#"  class="btn btn-primary btn-sm test mr-2"> Love </a>
 
-                
-                {% endif %} 
+            {% endif %}
+            
             </form>
+            </div>
             </div>
         </article>
     {% endfor %} 

@@ -10,6 +10,16 @@
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ object.author }}</a>
             <small class="text-muted">{{ object.date_posted|date:"F j, Y" }}</small>
+            {% if post.total_likes > 0 %}
+                &nbsp; {{ post.total_likes }} &#128077;
+
+                {% endif %} 
+
+                {% if post.total_loves > 0 %}
+                &nbsp; {{ post.total_loves }} &#10084;
+
+                {% endif %}
+            
             {% if object.author == user %}
             <div>
                 <a class="btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
@@ -19,6 +29,25 @@
         </div>
         <h2 class="article-title"> {{ object.title }} </h2>
         <p class="article-content">{{ object.content }}</p>
+        {% if user.is_authenticated %}
+                <div class="btn-group"> 
+                <form action="{% url 'like-post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="post_id" value="{{ post.id }}"  class="btn btn-primary btn-sm mr-2"> 
+                        Like 
+                    </button>
+                </form>
+                <form action="{% url 'love-post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm mr-2"> 
+                        Love 
+                    </button>
+            {% else %}
+                <div class="btn-group"> 
+                    <a href="#"  class="btn btn-primary btn-sm test mr-2"> Like </a>
+                    <a href="#"  class="btn btn-primary btn-sm test mr-2"> Love </a>
+
+            {% endif %}
         </div>
     </article>
     

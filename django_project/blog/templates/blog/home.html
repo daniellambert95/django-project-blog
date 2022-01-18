@@ -1,7 +1,31 @@
 {% extends "blog/base.html" %}
-
+{% load static %}
 {% block content %} 
 
-    <h1>Home Page</h1>
 
+    <img class="welcome" src=" {% static '/blog/Welcome_picture.jpeg' %}  " alt="Welcome page text saying welcome">
+        
+    <h5>
+        Hello and welcome to my very first, fully functional website. 
+    </h5>
+    
+    <p>I hope you enjoy it for all it's beauty!</p>
+    <hr>
+    <p>The aim of this project was to carry out implement the new techniques and coding skills I have attained while learning Python
+        and it's powerful web development framework Django. 
+    </p>
+    <p>Everything you see and and interact with throughout this site was 
+        created by Daniel Lambert. It most certainly didn't happen overnight and it's also not 100% finished. I will continue to add web-apps and functionailty to
+        this project as time moves forward.
+
+    </p>
+    <p>While I have your attention, feel free to register an account and create a post on the interactive blog 😊</p>
+    <hr>
+    
+    <div class="footer_parent"> 
+    <p class="footer_home"> If you would like to connect or get in contact feel free to reach out to me on 
+        <a href="https://www.linkedin.com/in/danieljlambert95/" target="_blank" >LinkedIn</a>. <br>
+         Alternatively you can fill out the contact form and I will make sure to get back in touch with you as soon as I can.
+    </p>
+    </div>
 {% endblock content %}  
