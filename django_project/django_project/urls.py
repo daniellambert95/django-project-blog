@@ -21,6 +21,7 @@ from users import views as user_views
 from blog import views as blog_views
 from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from blog.views import contact_view,
 
 urlpatterns = [
     path('admin/', admin.site.urls, name= 'admin'),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name = 'login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name = 'logout'), 
     path('about/', blog_views.about, name = 'about-page'),
+    path('contact/', blog_views.contact_view, name = 'contact'),
     path('', blog_views.home, name = 'home-page'),
     path('', include('blog.urls')),
     

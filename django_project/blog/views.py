@@ -1,9 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+from users.forms import ContactForm
 from .models import Post
+from django.template.loader import get_template
 from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
+from django.conf import settings
 from django.urls import reverse
 from django.shortcuts import redirect 
+from django.core.mail import EmailMessage
+from django.contrib import messages
 # from django.http import StreamingHttpResponse
 # import os
 # from WSGIREF.UTIL import FileWrapper
@@ -32,6 +39,40 @@ def about(request):
     logger.debug(request)
     return render(request, 'blog/about.html', {'title': 'About'})
 
+def contact_view(request):
+    contact_form = ContactForm
+    if request.method == 'POST':
+        form = ContactForm(data=request.POST)
+
+        if form.is_valid():
+            name = request.POST.get('name')
+            contact_email = request.POST.get('contact_email')
+            content = request.POST.get('content')
+
+            template = get_template('blog/contact_form.txt')
+
+            context = {
+                'name' : name,
+                'contact_email' : contact_email,
+                'content' : content
+            }
+            
+            context = template.render(context)
+        
+
+        email = EmailMessage(
+            "New contact form email",
+            context,
+            "Daniels Django Project",
+            ['danjlambert95@gmail.com'],
+            headers = {'Reply to': contact_email}
+        )
+
+        email.send()
+        messages.success(request, f'Your message has successfully been sent!')
+        return redirect('home-page')
+
+    return render(request, 'blog/contact.html', {'form':contact_form} )
 
 def blog(request):
     context = {
