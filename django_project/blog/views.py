@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+
 from users.forms import ContactForm
 from .models import Post
 from django.template.loader import get_template
@@ -40,6 +41,7 @@ def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
 
 def contact_view(request):
+    
     contact_form = ContactForm
     if request.method == 'POST':
         form = ContactForm(data=request.POST)

@@ -3,6 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 import logging
+import yagmail
+import local_settings
+
+EMAIL = local_settings.EMAIL_HOST_USER 
+PASSWORD = local_settings.EMAIL_HOST_PASSWORD
 
 logger = logging.getLogger("django")
 
@@ -14,7 +19,20 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+
+            #  This will send sign up congratulations email
+            
+            receiver = request.POST.get('email')
+            subject = 'Thank you for registering your profile!'
+            contents = '''
+            Thank you for taking the time to visit my site and set up a profile, I hope you like it!
+            '''
+            yag = yagmail.SMTP(user=EMAIL, password=PASSWORD)
+            yag.send(to=receiver, subject=subject, contents=contents)
+
+            # Redirect success message
             messages.success(request, f'Your account creation has been successful, you can now login!')
+            
             logger.info("A new user has successfully registered a new profile.")
             logger.debug(request)
             return redirect('login')

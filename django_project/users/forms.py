@@ -30,4 +30,4 @@ class ProfileUpdateForm(forms.ModelForm):
 class ContactForm(forms.Form):
     name = forms.CharField(required=True)
     contact_email = forms.EmailField(required=True)
-    content = forms.CharField(widget=forms.Textarea, required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
