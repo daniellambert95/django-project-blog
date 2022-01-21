@@ -135,3 +135,7 @@ a.del-msg {
 	float: right;
 	color: red;
 }
+
+.asteriskField {
+	display: none;
+}

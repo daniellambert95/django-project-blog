@@ -9,9 +9,10 @@ from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.urls import reverse
-from django.shortcuts import redirect 
+from django.shortcuts import redirect, get_object_or_404
 from django.core.mail import EmailMessage
 from django.contrib import messages
+from django.contrib.auth.models import User
 # from django.http import StreamingHttpResponse
 # import os
 # from WSGIREF.UTIL import FileWrapper
@@ -115,11 +116,24 @@ class PostListView(ListView):
     context_object_name = "posts"
     #  If I want to have the posts in order newest to oldest, add a '-' before date_posted
     ordering = ['date_posted']
+    paginate_by = 5
+
+class UserPostListView(ListView):
+    model = Post
+    template_name = "blog/user_posts.html"
+    context_object_name = "posts"
+    #  If I want to have the posts in order newest to oldest, add a '-' before date_posted
+    # ordering = ['date_posted']
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('date_posted')
 
 class PostDetailView(DetailView):
     model = Post
 
-class PostCreatelView(LoginRequiredMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
 
