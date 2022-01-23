@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# password
+# local settings
 local_settings
 local_settings.py
 
