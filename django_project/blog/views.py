@@ -13,9 +13,9 @@ from django.shortcuts import redirect, get_object_or_404
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.contrib.auth.models import User
-# from django.http import StreamingHttpResponse
-# import os
-# from WSGIREF.UTIL import FileWrapper
+
+
+
 from django.views.generic import (
     ListView, 
     DetailView, 
