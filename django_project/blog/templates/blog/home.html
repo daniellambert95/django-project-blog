@@ -4,11 +4,15 @@
 
 
     <img class="welcome" src=" {% static '/blog/Welcome_picture.jpeg' %}  " alt="Welcome page text saying welcome">
-        
-    <h5>
-        Hello and welcome to my very first, fully functional website. 
-    </h5>
-    
+    {% if user.is_authenticated %}
+        <h5>
+            Hello {{ user.get_username }}, welcome to my very first, fully functional website. 
+        </h5>
+    {% else %}
+        <h5>
+            Hello and welcome to my very first, fully functional website. 
+        </h5>
+        {% endif %}
     <p>I hope you enjoy it for all it's beauty!</p>
     <hr>
     <p>The aim of this project was to carry out implement the new techniques and coding skills I have attained while learning Python

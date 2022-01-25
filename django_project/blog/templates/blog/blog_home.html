@@ -1,8 +1,21 @@
 {% extends "blog/base.html" %}
+{% load post_count %}
 
 {% block content %} 
 
-    <h1>The Blog</h1>
+
+    <h1>The Blog </h1>
+
+    {% if user.is_authenticated %}
+        {% if post_count == 0 %}
+            <p> Hi {{ user.get_username }}, <a href="{% url 'post-create' %}">click here</a> to create your first post!</p>
+        {% else %}
+        <p> Hi {{ user.get_username }}, <a href="{% url 'post-create' %}">click here</a> to create another post!</p>
+
+        {% endif %}
+    {% else %}
+    <p> Welcome to the blog, you must <a href="{% url 'register' %}">register</a> to create your first post.</p>
+    {% endif %}
 
     {% for post in posts %}
         <article class="media content-section">
