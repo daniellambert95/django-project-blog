@@ -4,10 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 import logging
 import yagmail
-import local_settings
+from django.conf import settings
 
-EMAIL = local_settings.EMAIL_HOST_USER 
-PASSWORD = local_settings.EMAIL_HOST_PASSWORD
 
 logger = logging.getLogger("django")
 
@@ -27,7 +25,7 @@ def register(request):
             contents = '''
             Thank you for taking the time to visit my site and set up a profile, I hope you like it!
             '''
-            yag = yagmail.SMTP(user=EMAIL, password=PASSWORD)
+            yag = yagmail.SMTP(user=settings.EMAIL_HOST_USER, password=settings.EMAIL_HOST_PASSWORD)
             yag.send(to=receiver, subject=subject, contents=contents)
 
             # Redirect success message
